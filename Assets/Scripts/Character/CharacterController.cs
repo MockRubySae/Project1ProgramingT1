@@ -137,27 +137,27 @@ public class CharacterController : MonoBehaviour
         if (currentCharacterState == CharacterStates.Roaming)
         {
             // call our roaming state function
-            HandleRoamingState();
+            RoamingState();
         }
         else if (currentCharacterState == CharacterStates.Playing)
         {
             // call our playing state function
-            HandlePlayingState();
+            PlayingState();
         }
         else if (currentCharacterState == CharacterStates.Idle)
         {
             // call our idle state function
-            HandleIdleState();
+            IdleState();
         }
         else if (currentCharacterState == CharacterStates.Waving)
         {
             // call our waving state function
-            HandleWavingState();
+            WavingState();
         }
         else if (currentCharacterState == CharacterStates.Fleeing)
         {
             // call our fleeing state function
-            HandleFleeingState();
+            FleeingState();
         }
         if (currentCharacterState != CharacterStates.Fleeing && gameManager.IsPlayerToCloseToCharacter(transform, distanceThresholdOfPlayer))
         {
@@ -182,7 +182,7 @@ public class CharacterController : MonoBehaviour
     /// <summary>
     /// Handles the Roaming state of our character
     /// </summary>
-    private void HandleRoamingState()
+    private void RoamingState()
     {
         float distanceToTarget = 0;
 
@@ -241,7 +241,7 @@ public class CharacterController : MonoBehaviour
     /// <summary>
     /// Handle the idle state of our character
     /// </summary>
-    private void HandleIdleState()
+    private void IdleState()
     {
             // we must be close enough to our target position.
             // we wait a couple seconds.
@@ -262,21 +262,23 @@ public class CharacterController : MonoBehaviour
     /// <summary>
     /// Handles the fleeing state of our character
     /// </summary>
-    private void HandleFleeingState()
+    private void FleeingState()
     {
         gameManager.RunningAwayFromPlayer(true); // we are fleeing from the player play our music.
                                                  // here would should be running
         if (animationHandler.CurrentState != AnimationHandler.AnimationState.Running)
         {
-            animationHandler.CurrentState = AnimationHandler.AnimationState.Running; // set our animation to running animation
+            // set our animation to running animation
+            animationHandler.CurrentState = AnimationHandler.AnimationState.Running;
         }
         if (gameManager.IsPlayerToCloseToCharacter(transform, distanceThresholdOfPlayer))
         {
             /// if we are still too far away move closer
             if ( Vector3.Distance(transform.position, CurrentTargetPosition) > minDistanceToTarget)
-            {
-                Vector3 targetPosition = new Vector3(CurrentTargetPosition.x, transform.position.y, CurrentTargetPosition.z); // the positon we want to move towards
-                Vector3 nextMovePosition = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime * 1.5f); // the amount we should move towards that position
+            { // the positon we want to move towards
+                Vector3 targetPosition = new Vector3(CurrentTargetPosition.x, transform.position.y, CurrentTargetPosition.z);
+                // the amount we should move towards that position
+                Vector3 nextMovePosition = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime * 1.5f); 
                 rigidBody.MovePosition(nextMovePosition);
             }
             else
@@ -299,7 +301,7 @@ public class CharacterController : MonoBehaviour
     /// <summary>
     /// Handles the playing state of our character
     /// </summary>
-    private void HandlePlayingState()
+    private void PlayingState()
     {
         // we want to kick the ball cause are close enough.
        
@@ -322,7 +324,7 @@ public class CharacterController : MonoBehaviour
     /// <summary>
     /// Handles the waving state.
     /// </summary>
-    private void HandleWavingState()
+    private void WavingState()
     {
                                                                              // here would should be Waving
         if (animationHandler.CurrentState != AnimationHandler.AnimationState.Waving)
