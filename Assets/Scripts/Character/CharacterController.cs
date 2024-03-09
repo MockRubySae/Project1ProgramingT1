@@ -182,7 +182,7 @@ public class CharacterController : MonoBehaviour
         /// if we are still too far away move closer
         if (Vector3.Distance(transform.position, CurrentTargetPosition) > distanceToTarget)
         {
-            if(currentSoccerBall != null)
+            if (currentSoccerBall != null)
             {
                 // here would should be running
                 if (animationHandler.CurrentState != AnimationHandler.AnimationState.Running)
@@ -208,18 +208,18 @@ public class CharacterController : MonoBehaviour
                 rigidBody.MovePosition(nextMovePosition);
                 currentIdleWaitTime = Time.time + idleTime;
             }
-            if (currentSoccerBall != null)
-            {
-                // start playing with the ball
-                currentCharacterState = CharacterStates.Playing;
-                // sets the time to wait till until we play the animation
-                currentTimeTillPassingAnimationPlays = Time.time + passingAnimationDelay;
-            }
-            else
-            {
-                currentCharacterState = CharacterStates.Idle; // start idling
+        }
+        else if (currentSoccerBall != null)
+        {
+            // start playing with the ball
+            currentCharacterState = CharacterStates.Playing;
+            // sets the time to wait till until we play the animation
+            currentTimeTillPassingAnimationPlays = Time.time + passingAnimationDelay;
+        }
+        else
+        {
+            currentCharacterState = CharacterStates.Idle; // start idling
 
-            }
         }
     }
     /// <summary>
