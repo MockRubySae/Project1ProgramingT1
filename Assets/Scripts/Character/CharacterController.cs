@@ -227,8 +227,6 @@ public class CharacterController : MonoBehaviour
     /// </summary>
     private void HandleIdleState()
     {
-        if(currentCharacterState == CharacterStates.Idle)
-        {
             // we must be close enough to our target position.
             // we wait a couple seconds.
             // then find a new position to move to.
@@ -243,7 +241,6 @@ public class CharacterController : MonoBehaviour
             {
                 animationHandler.CurrentState = AnimationHandler.AnimationState.Idle; // set our animation to idle animation
             }
-        }
     }
 
     /// <summary>
