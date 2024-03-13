@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
 
     public UIManager uiManager; // reference to our UI Manager
 
-    public AudioManager audioManager; // reference to our audio manager
 
     private bool areCharactersRunningAway = false; // are there any characters currently running away from the player.
 
@@ -156,9 +155,9 @@ public class GameManager : MonoBehaviour
             mice[i].SoccerBallSpawned(currentSoccerBallInstance.transform);
         }
         uiManager.DisplayScores(true); // display our scores on our goals.
-        if(audioManager != null) // if we have a reference to the audio manager
+        if(AudioManager.Instance != null) // if we have a reference to the audio manager
         {
-            audioManager.PlayPlayingMusic(); // start playing the second track/the soccer playing music.
+            AudioManager.Instance.PlayPlayingMusic(); // start playing the second track/the soccer playing music.
         }
     }
 
@@ -180,11 +179,11 @@ public class GameManager : MonoBehaviour
         // if characters are running away in fear
         if(areCharactersRunningAway == true)
         {
-            audioManager.PlayFleeingMusic(); // start playing the fleeing music.
+            AudioManager.Instance.PlayFleeingMusic(); // start playing the fleeing music.
         }
         else
         {
-            audioManager.PlayPreviousTrack(); // otherwise start playing the last track.
+            AudioManager.Instance.PlayPreviousTrack(); // otherwise start playing the last track.
         }
     }
 }

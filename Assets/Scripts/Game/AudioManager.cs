@@ -12,7 +12,24 @@ public class AudioManager : MonoBehaviour
     private AudioClip currentTrack; // the current track being played.
     private AudioClip previousTrack; // the previous track that was played.
     public AudioSource audioSource; // a reference to our audiosource, where the music will be played from.
-
+  
+    // add a signlton to the class so that there is only ever one audio manager 
+    public static AudioManager _instance;
+    public static AudioManager Instance 
+    {  
+        get 
+        {
+            if (_instance == null)
+            {
+                _instance = new AudioManager();
+            }
+            return _instance; 
+        } 
+    }
+    public void Awake()
+    {
+        _instance = this;
+    }
     /// <summary>
     /// So this gets called everytime the script get's turn off/on
     /// </summary>

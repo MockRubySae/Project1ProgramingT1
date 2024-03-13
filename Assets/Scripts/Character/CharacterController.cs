@@ -159,6 +159,9 @@ public class CharacterController : MonoBehaviour
             // call our fleeing state function
             FleeingState();
         }
+
+        // these states are unique in that they do not chnage from another state and that they change at anytime 
+        // this means that we need to have unique if statements to check wherether they activate or not 
         if (currentCharacterState != CharacterStates.Fleeing && gameManager.IsPlayerToCloseToCharacter(transform, distanceThresholdOfPlayer))
         {
             // we should be fleeing
@@ -234,7 +237,8 @@ public class CharacterController : MonoBehaviour
         }
         else
         {
-            currentCharacterState = CharacterStates.Idle; // start idling
+            // start idling
+            currentCharacterState = CharacterStates.Idle;
 
         }
     }
@@ -334,9 +338,12 @@ public class CharacterController : MonoBehaviour
         if (Time.time > currentWaveTime)
         {
             // Stop waving
-            CurrentTargetPosition = previousTargetPosition; // resume moving towards our random target position.
-            currentTimeBetweenWaves = Time.time + timeBetweenWaves; // set the next time for when we can wave again.
-            currentCharacterState = CharacterStates.Roaming; // start roaming again
+            // resume moving towards our random target position.
+            CurrentTargetPosition = previousTargetPosition;
+            // set the next time for when we can wave again.
+            currentTimeBetweenWaves = Time.time + timeBetweenWaves;
+            // start roaming again
+            currentCharacterState = CharacterStates.Roaming;
         }
 
     }
@@ -369,10 +376,14 @@ public class CharacterController : MonoBehaviour
     /// </summary>
     private void LookAtTargetPosition()
     {
-        Vector3 directionToLookAt = CurrentTargetPosition - transform.position; // get the direction we should be lookin at
-        directionToLookAt.y = 0;//don't change the Y position
-        Quaternion rotationOfDirection = Quaternion.LookRotation(directionToLookAt); // get a rotation that we can use to look towards
-        transform.rotation = rotationOfDirection; // set our current rotation to our rotation to face towards.
+        // get the direction we should be lookin at
+        Vector3 directionToLookAt = CurrentTargetPosition - transform.position;
+        //don't change the Y position
+        directionToLookAt.y = 0;
+        // get a rotation that we can use to look towards
+        Quaternion rotationOfDirection = Quaternion.LookRotation(directionToLookAt);
+        // set our current rotation to our rotation to face towards.
+        transform.rotation = rotationOfDirection;
     }
 
     private void OnDrawGizmosSelected()
@@ -388,9 +399,12 @@ public class CharacterController : MonoBehaviour
     /// <param name="SoccerBall"></param>
     public void SoccerBallSpawned(Transform SoccerBall)
     {
-        currentSoccerBall = SoccerBall; // assign the soccer ball to our reference
-        CurrentTargetPosition = currentSoccerBall.position; // set our target position to our soccer ball
-        currentCharacterState = CharacterStates.Roaming; // using our roaming state to start moving towards our soccerball
+        // assign the soccer ball to our reference
+        currentSoccerBall = SoccerBall;
+        // set our target position to our soccer ball
+        CurrentTargetPosition = currentSoccerBall.position;
+        // using our roaming state to start moving towards our soccerball
+        currentCharacterState = CharacterStates.Roaming;
         selfIdentifier.SetActive(true);
     }
 
@@ -399,8 +413,10 @@ public class CharacterController : MonoBehaviour
     /// </summary>
     public void KickSoccerBall()
     {
-        Vector3 direction = myGoal.transform.position - transform.forward; // get a directional vector that moves towards our goal post.
-        currentSoccerBall.GetComponent<Rigidbody>().AddForce(direction * soccerBallKickForce * Random.Range(0.5f, 10f)); // kick the ball towards our goal post. and add a little random force so the ball doesn't get stuck
+        // get a directional vector that moves towards our goal post.
+        Vector3 direction = myGoal.transform.position - transform.forward;
+        // kick the ball towards our goal post. and add a little random force so the ball doesn't get stuck
+        currentSoccerBall.GetComponent<Rigidbody>().AddForce(direction * soccerBallKickForce * Random.Range(0.5f, 10f)); 
     }
 
 }

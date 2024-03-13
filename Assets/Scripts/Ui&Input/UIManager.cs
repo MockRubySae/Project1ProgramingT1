@@ -5,13 +5,19 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject playerOneCanvas; // reference to the player's canvas object
-    public Text playerOneScoreText; // reference to the actual we'll be modifying.
-    public Color playerOneColour; // the colour of the text we are going to be using.
+    // reference to the player's canvas object
+    public GameObject playerOneCanvas;
+    // reference to the actual we'll be modifying.
+    public Text playerOneScoreText;
+    // the colour of the text we are going to be using.
+    public Color playerOneColour;
 
-    public GameObject playerTwoCanvas; // reference to the player's canvas object
-    public Text playerTwoScoreText; // reference to the actual we'll be modifying.
-    public Color playerTwoColour; // the colour of the text we are going to be using.
+    // reference to the player's canvas object
+    public GameObject playerTwoCanvas;
+    // reference to the actual we'll be modifying.
+    public Text playerTwoScoreText;
+    // the colour of the text we are going to be using.
+    public Color playerTwoColour;
 
     
     /// <summary>
@@ -37,12 +43,15 @@ public class UIManager : MonoBehaviour
             Debug.LogError("No Text has been assigned for this player");
             return;
         }
+        // change the colour of our text to match the player colour
+        playerOneScoreText.color = playerOneColour;
+        // set the text to display our score.
+        playerOneScoreText.text = playerOneScore.ToString();
 
-        playerOneScoreText.color = playerOneColour; // change the colour of our text to match the player colour
-        playerOneScoreText.text = playerOneScore.ToString(); // set the text to display our score.
-
-        playerTwoScoreText.color = playerTwoColour; // change the colour of our text to match the player colour
-        playerTwoScoreText.text = playerTwoScore.ToString(); // set the text to display our score.
+        // change the colour of our text to match the player colour
+        playerTwoScoreText.color = playerTwoColour;
+        // set the text to display our score.
+        playerTwoScoreText.text = playerTwoScore.ToString();
 
     }
 
